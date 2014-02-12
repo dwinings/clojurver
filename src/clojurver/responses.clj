@@ -1,6 +1,7 @@
 (ns clojurver.responses
   (:use [clojure.string :only (join)]
-        [clojurver.file]))
+        [clojurver.file])
+  (:require [clojure.tools.logging :as logging]))
 
 (def response-ok { :status-line "HTTP/1.0 200 OK"
                    :headers {:Content-Type "text/html"}})

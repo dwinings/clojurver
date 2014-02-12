@@ -1,7 +1,8 @@
 (ns clojurver.core
   (:use [clojurver.routing]
         [server.socket]
-        [clojure.string :only (join split lower-case)]))
+        [clojure.string :only (join split lower-case)])
+  (:require [clojure.tools.logging :as logging]))
 
 (import '(java.io PrintWriter InputStreamReader PrintWriter) '(Java.net.ServerSocket))
 

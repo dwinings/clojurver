@@ -1,15 +1,15 @@
 (ns clojurver.routing
   (:use [clojurver.responses]
         [clojurver.file]
-        [clojure.string :only (split)]))
+        [clojure.string :only (split)])
+  (:require [clojure.tools.logging :as logging]))
 
 (def routes {"/" "index"
              "/about" "about"
              "/contact" "contact"})
 
 (defn defroute [route page]
-  (assoc routes route page))
-
+  (def routes (assoc routes route page)))
 
 (defmulti controller
   (fn [request]
