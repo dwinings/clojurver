@@ -42,3 +42,5 @@
 
 (defn -main []
   (start-server))
+
+(restart-server)

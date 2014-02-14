@@ -1,0 +1,6 @@
+<html>
+    <body>
+        <embed> (clojurver.rendering/render-partial "testpartial.html.partial") </embed>
+        <h1>This would be a contact page...</h1>
+    </body>
+</html>

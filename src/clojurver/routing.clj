@@ -1,6 +1,7 @@
 (ns clojurver.routing
   (:use [clojurver.responses]
         [clojurver.file]
+        [clojurver.rendering]
         [clojure.string :only (split)])
   (:require [clojure.tools.logging :as logging]))
 
@@ -19,9 +20,13 @@
             :else :default))))
 
 (defmethod controller :html [request]
-  (if (routes (request :path))
-    (send-response response-ok (slurp (str "html/" (routes (request :path)) ".html")))
-    (send-response response-not-found (slurp "html/404.html"))))
+  (let [asset-name (routes (request :path))]
+    (if asset-name
+      (let [filename (cond (file-exists? (str "html/" asset-name ".html")) (str "html/" asset-name ".html")
+                           (file-exists? (str "html/" asset-name ".html.eclj")) (str "html/" asset-name ".html.eclj")
+                           :default "404.html")]
+        (send-response response-ok (render filename)))
+      (do (logging/info "Asset not found.") (send-response response-not-found (slurp "html/404.html"))))))
 
 
 (defmethod controller :asset [request]
